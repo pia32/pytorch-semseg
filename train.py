@@ -134,12 +134,13 @@ def train(cfg, writer, logger):
             time_meter.update(time.time() - start_ts)
 
             if (i + 1) % cfg["training"]["print_interval"] == 0:
-                fmt_str = "Iter [{:d}/{:d}]  Loss: {:.4f}  Time/Image: {:.4f}"
+                fmt_str = "Iter [{:d}/{:d}]  Loss: {:.4f}  Time/Image: {:.4f} Remaining hrs: {:.4f}"
                 print_str = fmt_str.format(
                     i + 1,
                     cfg["training"]["train_iters"],
                     loss.item(),
                     time_meter.avg / cfg["training"]["batch_size"],
+                    time_meter.avg / cfg["training"]["batch_size"] * (cfg["training"]["train_iters"] - i) / 3600
                 )
 
                 print(print_str)
